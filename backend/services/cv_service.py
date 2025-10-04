@@ -8,7 +8,7 @@ from PIL import Image
 load_dotenv()
 
 CLIENT = InferenceHTTPClient(
-    api_url="https://detect.roboflow.com",
+    api_url=os.getenv("ROBOFLOW_URL"),
     api_key=os.getenv("ROBOFLOW_API_KEY"),
 )
 
