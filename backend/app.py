@@ -17,14 +17,8 @@ app = FastAPI(
 def test_route():
     return {"message": "Hello World"}
 
-@app.get("/predict")
-def predict_route():
-    return predict.predict()
-
-@app.get("/pantry")
-def pantry_route():
-    return pantry.pantry()
-
+app.include_router(predict.router)
+app.include_router(pantry.router)
 
 if __name__ == "__main__":
     import uvicorn
