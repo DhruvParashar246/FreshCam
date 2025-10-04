@@ -1,0 +1,62 @@
+freshcam/
+├── mobile/                               # React Native app
+│   ├── App.js                            # Entry point
+│   ├── package.json
+│   ├── assets/                           # App icons, images, logos
+│   │   └── icons/
+│   ├── components/                       # Reusable UI elements
+│   │   ├── CameraView.js                 # Live camera/webcam feed
+│   │   ├── FreshnessScore.js             # 0–100 ripeness bar
+│   │   ├── HeatmapOverlay.js             # CV-detected bruises/spots
+│   │   ├── PantryItemCard.js             # Single pantry item card w/ timer
+│   │   ├── RecipeCard.js                 # Suggested recipe tile
+│   │   └── StorageTipCard.js             # Optimal storage guidance
+│   ├── screens/                          # Screens for navigation
+│   │   ├── HomeScreen.js                 # Landing screen
+│   │   ├── CameraScreen.js               # Capture fruit/veg
+│   │   ├── ResultScreen.js               # Score + heatmap + advice
+│   │   ├── PantryScreen.js               # Dashboard of pantry items + timers
+│   │   ├── RecipesScreen.js              # Suggested recipes (mapped by ripeness)
+│   │   └── StorageTipsScreen.js          # How to store each produce type
+│   ├── navigation/
+│   │   └── AppNavigator.js               # Tab/Stack navigation
+│   ├── context/                          # App-wide state
+│   │   ├── PantryContext.js              # Items + expiration timers
+│   │   └── UserPreferences.js            # (likes firm bananas, etc.)
+│   ├── api/                              # Network calls to backend
+│   │   ├── client.js                     # Axios/fetch wrapper
+│   │   └── endpoints.js                  # /predict, /recipes, /storage
+│   └── utils/                            # Helpers
+│       ├── timerUtils.js                 # Expiration countdown logic
+│       └── formatUtils.js                # Stage → text mappings
+│
+├── backend/                              # FastAPI/Flask backend
+│   ├── app.py                            # Main backend entry
+│   ├── routes/
+│   │   ├── predict.py                    # POST /predict (CV ripeness grader)
+│   │   ├── pantry.py                     # CRUD for pantry items
+│   │   ├── recipes.py                    # GET recipes by ripeness/ingredient
+│   │   └── storage.py                    # GET optimal storage tips
+│   ├── services/
+│   │   ├── cv_service.py                 # Hue histogram, edge/spot detection
+│   │   ├── stage_classifier.py           # Stage 1–5 ripeness logic
+│   │   └── explainability_service.py     # Heatmaps, overlays
+│   ├── models/
+│   │   ├── freshness_model.py            # Optional CNN / TF.js bridge
+│   │   └── pantry_model.py               # DB schema for pantry items
+│   ├── db/
+│   │   ├── pantry_db.sqlite              # (or Firebase/Supabase)
+│   │   └── db_utils.py
+│   ├── requirements.txt
+│   └── tests/
+│       └── test_predict.py
+│
+├── docs/                                 # Hackathon-ready docs
+│   ├── PROBLEM_STATEMENT.md              # Food waste, ripeness confusion
+│   ├── SOLUTION.md                       # Explainability + utility
+│   ├── FEATURES.md                       # MVP → Stretch roadmap
+│   └── PITCH_DECK.pptx
+│
+├── .gitignore
+├── README.md
+└── docker-compose.yml                    # Optional: run backend + db
