@@ -10,36 +10,24 @@ export default function TabsLayout() {
         headerShown: false,
         tabBarActiveTintColor: Colors.primary,
         tabBarInactiveTintColor: "#999",
-        tabBarStyle: { backgroundColor: "#fff", borderTopWidth: 0, height: 60 },
         tabBarLabelStyle: { fontSize: 12, paddingBottom: 5 },
       }}
     >
       <Tabs.Screen
         name="camera"
         options={{
-          title: "Camera",
+          title: "FreshCam",
           tabBarIcon: ({ color }) => (
-            <Ionicons name="camera-outline" size={22} color={color} />
+            <Ionicons name="camera-outline" size={24} color={color} />
           ),
         }}
       />
-
-      <Tabs.Screen
-        name="pantry"
-        options={{
-          title: "Pantry",
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="basket-outline" size={22} color={color} />
-          ),
-        }}
-      />
-
       <Tabs.Screen
         name="tips"
         options={{
           title: "Tips",
           tabBarIcon: ({ color }) => (
-            <Ionicons name="bulb-outline" size={22} color={color} />
+            <Ionicons name="bulb-outline" size={24} color={color} />
           ),
         }}
       />

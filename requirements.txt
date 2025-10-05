@@ -4,3 +4,4 @@ python-dotenv==1.0.1
 pillow>=11.0.0
 numpy>=2.0.0
 inference-sdk==0.9.11
+google-generativeai>=0.8.0
