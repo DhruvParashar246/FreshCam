@@ -6,42 +6,38 @@ import { useRouter } from "expo-router";
 export default function CameraScreen() {
   const [permission, requestPermission] = useCameraPermissions();
   const [isReady, setIsReady] = useState(false);
-  const cameraRef = useRef<CameraView | null>(null);  // ✅ FIXED
+  const cameraRef = useRef<CameraView | null>(null);
   const router = useRouter();
 
-  // Step 1: Handle permissions
   useEffect(() => {
     if (!permission) requestPermission();
   }, [permission]);
 
-  if (!permission) {
-    return <View><Text>Loading permissions...</Text></View>;
-  }
+  if (!permission) return <View><Text>Loading permissions...</Text></View>;
 
   if (!permission.granted) {
     return (
       <View style={styles.container}>
-        <Text style={{ textAlign: "center", marginBottom: 10 }}>
-          We need access to your camera to scan fruits 🍎
+        <Text style={styles.permissionText}>
+          We need camera access to scan your fruit 🍌
         </Text>
-        <TouchableOpacity onPress={requestPermission} style={styles.button}>
-          <Text style={styles.buttonText}>Grant Permission</Text>
+        <TouchableOpacity onPress={requestPermission} style={styles.grantBtn}>
+          <Text style={styles.grantText}>Grant Permission</Text>
         </TouchableOpacity>
       </View>
     );
   }
 
-  // Step 2: Render camera preview
   const takePicture = async () => {
     if (cameraRef.current) {
-        const photo = await cameraRef.current.takePictureAsync({
-            quality: 0.5,
-            base64: false,
-          });
-        router.push({
-            pathname: "/result",
-            params: { imageUri: photo.uri }, // pass image to result screen
-        });
+      const photo = await cameraRef.current.takePictureAsync({
+        quality: 0.5,
+        base64: false,
+      });
+      router.replace({
+        pathname: "/result",
+        params: { imageUri: photo.uri },
+      });
     }
   };
 
@@ -52,48 +48,69 @@ export default function CameraScreen() {
         ref={cameraRef}
         onCameraReady={() => setIsReady(true)}
       />
+      <View style={styles.overlay}>
+        <Text style={styles.overlayText}>Align your fruit inside the frame 🍎</Text>
+      </View>
       <TouchableOpacity
-        style={[styles.captureButton, { opacity: isReady ? 1 : 0.5 }]}
+        style={[styles.captureButton, { opacity: isReady ? 1 : 0.6 }]}
         onPress={takePicture}
         disabled={!isReady}
+        activeOpacity={0.8}
       >
-        <Text style={styles.captureText}>📸</Text>
+        <View style={styles.innerCircle} />
       </TouchableOpacity>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#000",
-    justifyContent: "center",
-    alignItems: "center",
+  container: { flex: 1, backgroundColor: "#000" },
+  camera: { flex: 1, width: "100%" },
+  overlay: {
+    position: "absolute",
+    top: 60,
+    alignSelf: "center",
+    backgroundColor: "#00000070",
+    padding: 10,
+    borderRadius: 10,
   },
-  camera: {
-    flex: 1,
-    width: "100%",
+  overlayText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "500",
   },
   captureButton: {
     position: "absolute",
     bottom: 50,
-    width: 80,
-    height: 80,
-    borderRadius: 40,
-    backgroundColor: "white",
-    alignItems: "center",
+    alignSelf: "center",
+    width: 90,
+    height: 90,
+    borderRadius: 45,
+    backgroundColor: "#fff",
     justifyContent: "center",
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    elevation: 5,
   },
-  captureText: {
-    fontSize: 32,
-  },
-  button: {
+  innerCircle: {
+    width: 70,
+    height: 70,
+    borderRadius: 35,
     backgroundColor: "#4CAF50",
-    padding: 12,
-    borderRadius: 8,
   },
-  buttonText: {
+  permissionText: {
     color: "#fff",
-    fontWeight: "600",
+    textAlign: "center",
+    marginBottom: 20,
+    fontSize: 16,
   },
+  grantBtn: {
+    backgroundColor: "#4CAF50",
+    paddingHorizontal: 25,
+    paddingVertical: 10,
+    borderRadius: 20,
+  },
+  grantText: { color: "#fff", fontWeight: "600", fontSize: 16 },
 });

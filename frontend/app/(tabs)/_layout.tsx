@@ -23,26 +23,6 @@ export default function TabsLayout() {
           ),
         }}
       />
-
-      <Tabs.Screen
-        name="pantry"
-        options={{
-          title: "Pantry",
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="basket-outline" size={22} color={color} />
-          ),
-        }}
-      />
-
-      <Tabs.Screen
-        name="tips"
-        options={{
-          title: "Tips",
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="bulb-outline" size={22} color={color} />
-          ),
-        }}
-      />
     </Tabs>
   );
 }
