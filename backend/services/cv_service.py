@@ -8,8 +8,8 @@ from PIL import Image
 load_dotenv()
 
 CLIENT = InferenceHTTPClient(
-    api_url=os.getenv("ROBOFLOW_URL"),
-    api_key=os.getenv("ROBOFLOW_API_KEY"),
+    api_url=os.getenv("https://detect.roboflow.com"),
+    api_key=os.getenv("JrQNqqw3Sj1wzWj842i9"),
 )
 
 def analyze_image(image_bytes):

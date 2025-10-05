@@ -1,5 +1,5 @@
 from fastapi import APIRouter, File, UploadFile
-from services.cv_service import analyze_image
+from backend.services.cv_service import analyze_image
 
 router = APIRouter()
 
