@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routes import predict, pantry
+from routes import predict
 
 app = FastAPI(
     title="FreshCam",
@@ -27,7 +27,6 @@ def test_route():
     return {"message": "Hello World"}
 
 app.include_router(predict.router)
-app.include_router(pantry.router)
 
 if __name__ == "__main__":
     import uvicorn
