@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Image, TouchableOpacity, ActivityIndicator, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  ActivityIndicator,
+  StyleSheet,
+} from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import axios from "axios";
 import { FlatColors as Colors } from "../constants/theme";
 
 export default function ResultScreen() {
   const router = useRouter();
-  const { imageUri } = useLocalSearchParams<{ imageUri: string }>(); // Get the photo from Camera
+  const { imageUri } = useLocalSearchParams<{ imageUri: string }>();
   const [result, setResult] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Send to backend when the screen loads
   useEffect(() => {
     if (imageUri) {
       analyzeImage(imageUri);
@@ -27,12 +32,22 @@ export default function ResultScreen() {
         name: "image.jpg",
       } as any);
 
-      const response = await axios.post("http://192.168.1.105:8000/predict", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      // ✅ Use ngrok URL instead of localhost
+      const res = await fetch(
+        "https://conciliar-dextrosinistrally-jessika.ngrok-free.dev/predict",
+        {
+          method: "POST",
+          body: formData,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
-      setResult(response.data);
+      const data = await res.json();
+      setResult(data);
     } catch (err) {
+      console.error("❌ Upload error:", err);
       setError("Failed to analyze image. Please try again.");
     } finally {
       setLoading(false);
@@ -61,21 +76,21 @@ export default function ResultScreen() {
       <Image source={{ uri: imageUri }} style={styles.image} />
       <Text style={styles.title}>Ripeness Result</Text>
 
-      {result ? (
+      {result && !result.error ? (
         <>
           <Text style={styles.text}>
-            <Text style={{ fontWeight: "600" }}>Fruit:</Text> {result.label}
+            <Text style={{ fontWeight: "600" }}>Ripeness:</Text>{" "}
+            {result.ripeness}
           </Text>
           <Text style={styles.text}>
-            <Text style={{ fontWeight: "600" }}>Confidence:</Text> {(result.confidence * 100).toFixed(1)}%
-          </Text>
-          <Text style={styles.text}>
-            <Text style={{ fontWeight: "600" }}>Status:</Text>{" "}
-            {result.ripeness_description || "Looks fresh!"}
+            <Text style={{ fontWeight: "600" }}>Confidence:</Text>{" "}
+            {result.confidence}%
           </Text>
         </>
       ) : (
-        <Text style={styles.text}>No data returned.</Text>
+        <Text style={styles.text}>
+          {result?.error || "No predictions returned."}
+        </Text>
       )}
 
       <TouchableOpacity
