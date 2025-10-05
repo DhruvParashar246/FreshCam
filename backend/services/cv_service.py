@@ -15,7 +15,6 @@ CLIENT = InferenceHTTPClient(
 def analyze_image(image_bytes):
     image_stream = BytesIO(image_bytes)
     image = Image.open(image_stream).convert("RGB")
-
     image = image.resize((640, 640))
 
     result = CLIENT.infer(image, model_id="fruit-ripeness-unjex/2")
