@@ -91,15 +91,6 @@ export default function ResultScreen() {
   return (
     <ScrollView style={styles.container}>
       {/* Header with Back Button */}
-      <View style={styles.header}>
-        <TouchableOpacity
-          style={styles.backButton}
-          onPress={() => router.back()}
-        >
-          <Ionicons name="arrow-back" size={24} color={Colors.text} />
-          <Text style={styles.backText}>Back</Text>
-        </TouchableOpacity>
-      </View>
 
       {/* Image */}
       <View style={styles.imageContainer}>

@@ -107,9 +107,9 @@ Result:
 
 ### ✅ Environment Variables (`.env`)
 ```env
-ROBOFLOW_API_KEY=JrQNqqw3Sj1wzWj842i9 ✅
+ROBOFLOW_API_KEY=your_roboflow_api_key_here ✅
 ROBOFLOW_URL=https://detect.roboflow.com ✅
-SPOONACULAR_API_KEY=aa2ab60217c9406284c8473f6e3c7384 ✅
+SPOONACULAR_API_KEY=your_spoonacular_api_key_here ✅
 ```
 
 ### ✅ Database Created

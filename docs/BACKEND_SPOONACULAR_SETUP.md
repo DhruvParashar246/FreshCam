@@ -36,7 +36,7 @@ The backend now has full **Spoonacular Food API** integration for smart recipe r
 Edit `backend/.env` and add your Spoonacular API key:
 
 ```env
-ROBOFLOW_API_KEY=JrQNqqw3Sj1wzWj842i9
+ROBOFLOW_API_KEY=your_roboflow_api_key_here
 ROBOFLOW_URL=https://detect.roboflow.com
 
 # Add your Spoonacular API key here:

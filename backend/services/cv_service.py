@@ -14,7 +14,7 @@ CLIENT = None
 roboflow_url = os.getenv("ROBOFLOW_URL")
 roboflow_key = os.getenv("ROBOFLOW_API_KEY")
 
-if roboflow_url and roboflow_key and roboflow_key != "your_roboflow_api_key_here":
+if roboflow_url and roboflow_key:
     try:
         CLIENT = InferenceHTTPClient(
             api_url=roboflow_url,

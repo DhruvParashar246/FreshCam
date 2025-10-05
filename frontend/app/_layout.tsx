@@ -8,7 +8,10 @@ export default function Layout() {
     <Stack>
       <Stack.Screen
         name="(tabs)"
-        options={{ headerShown: false }}
+        options={{ 
+          title: "back",
+          headerShown: false 
+        }}
       />
 
       <Stack.Screen
