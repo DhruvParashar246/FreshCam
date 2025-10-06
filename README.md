@@ -57,6 +57,11 @@ npm install
 npm start
 ```
 
+4. Start the app:
+```bash
+npx expo start --tunnel
+```
+
 ## How It Works
 
 1. **Take a photo** of a fruit using the mobile app
